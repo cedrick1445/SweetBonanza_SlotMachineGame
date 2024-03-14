@@ -1,0 +1,74 @@
+#game {
+    z-index: 10;
+    position: relative;
+}
+
+#wrongRotation {
+    display: none;
+    z-index: 15;
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 1);
+}
+
+#wrongRotationText {
+    position: relative;
+    text-align: center;
+    color: rgb(255, 255, 255);
+    font-size: 150%;
+    margin-top: 10%; /* Adjusted top margin for better positioning */
+}
+
+#wrongRotation img {
+    display: block;
+    width: 50%; /* Adjusted image width for better visibility on mobile */
+    margin: 0 auto; /* Centered the image */
+    position: relative;
+    top: 40%;
+    transform: translateY(-50%);
+}
+
+.spl-branding-image {
+    display: block;
+    bottom: 0;
+    left: 0;
+    width: 50%; /* Adjusted width for better visibility on mobile */
+    position: absolute;
+}
+
+#spl-more-games-btn {
+    color: #754C24;
+    font-weight: bold;
+    background-color: #D6A461;
+    border: 3px solid #603813; /* Corrected border style */
+    border-radius: 10px;
+    padding: 10px;
+    text-decoration: none;
+    bottom: 0;
+    right: 0;
+    margin: 10px; /* Added margin for better spacing */
+    position: fixed; /* Changed from absolute to fixed for better positioning on mobile */
+}
+
+#menu {
+    position: fixed;
+}
+
+@font-face {
+    font-family: 'gameFont';
+    font-style: normal;
+    font-weight: 400;
+    src: url('../assets/fnt/gamefont_slots.ttf') format('truetype');
+}
+
+/* Media query for mobile devices */
+@media screen and (max-width: 768px) {
+    #game {
+        /* Add specific styles for smaller screens if needed */
+    }
+
+    #spl-more-games-btn {
+        font-size: 80%; /* Adjusted font size for better visibility on smaller screens */
+    }
+}

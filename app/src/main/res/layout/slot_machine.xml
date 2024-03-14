@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">
+
+    <ImageView
+            android:id="@+id/imageLayout"
+            android:layout_width="494dp"
+            android:layout_height="309dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="25dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="25dp"
+            android:src="@drawable/spinner_shape"
+            android:labelFor="@id/imageLayout"
+            android:contentDescription="@string/frame_of_spinner"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+    <FrameLayout
+            android:id="@+id/frameLayout1"
+            android:layout_width="105dp"
+            android:layout_height="290dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="8dp"
+            android:contentDescription="@string/spinnerframe1"
+            android:gravity="center"
+            app:layout_constraintBottom_toBottomOf="@+id/imageLayout"
+            app:layout_constraintEnd_toStartOf="@+id/frameLayout2"
+            app:layout_constraintStart_toStartOf="@+id/imageLayout"
+            app:layout_constraintTop_toTopOf="@+id/imageLayout">
+
+        <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/spinner1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:contentDescription="@string/spinnerframe1"
+                android:gravity="center"
+                android:layout_gravity="center"
+                android:scrollbars="none" />
+        <!--         Transparent overlay to intercept touch events-->
+        <View
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@android:color/transparent"
+                android:clickable="true"
+                android:contentDescription="@string/spinnerframe1" />
+
+    </FrameLayout>
+
+    <FrameLayout
+            android:id="@+id/frameLayout2"
+            android:layout_width="105dp"
+            android:layout_height="290dp"
+            android:layout_marginTop="20dp"
+            android:contentDescription="@string/spinner_frame_2"
+            app:layout_constraintBottom_toBottomOf="@+id/imageLayout"
+            app:layout_constraintEnd_toStartOf="@+id/frameLayout3"
+            app:layout_constraintStart_toEndOf="@+id/frameLayout1"
+            app:layout_constraintTop_toTopOf="@+id/imageLayout">
+
+        <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/spinner2"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:contentDescription="@string/spinner_frame_2"
+                android:gravity="center"
+                android:layout_gravity="center"
+                android:scrollbars="none" />
+
+        <View
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@android:color/transparent"
+                android:clickable="true"
+                android:contentDescription="@string/spinner_frame_2" />
+
+    </FrameLayout>
+
+    <FrameLayout
+            android:id="@+id/frameLayout3"
+            android:layout_width="105dp"
+            android:layout_height="290dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="25dp"
+            android:contentDescription="@string/spinner_frame_3"
+            app:layout_constraintBottom_toBottomOf="@+id/imageLayout"
+            app:layout_constraintEnd_toEndOf="@+id/imageLayout"
+            app:layout_constraintStart_toEndOf="@+id/frameLayout2"
+            app:layout_constraintTop_toTopOf="@+id/imageLayout">
+
+        <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/spinner3"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:contentDescription="@string/spinner_frame_3"
+                android:gravity="center"
+                android:layout_gravity="center"
+                android:scrollbars="none" />
+
+        <View
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@android:color/transparent"
+                android:clickable="true"
+                android:contentDescription="@string/spinner_frame_3" />
+
+    </FrameLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

